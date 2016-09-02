@@ -1,0 +1,25 @@
+<ion-view>
+   <ion-nav-title>{{partitura.titulo}}</ion-nav-title>
+   <ion-nav-buttons side="secondary">
+      <div class="buttons">
+         <button class="{{scroll_icon}}" ng-click="btnStartScroll()"></button>
+      </div>
+   </ion-nav-buttons>
+
+   <ion-content delegate-handle="mainScroll" on-scroll="updateScrollPosition()">
+      <div class="div-partitura" ng-bind-html="partitura.conteudo"> </div>
+   </ion-content>
+
+   <ion-footer-bar align-title="center" class="bar-positive">
+      <div class="buttons" ng-click="btnReduzirVelocidade()">
+         <button class="button button-icon icon ion-ios-minus-outline"></button>
+      </div>
+
+      <h1 class="title">{{velocidade}}</h1>
+
+      <div class="buttons" ng-click="btnAumentarVelocidade()">
+         <button class="button button-icon icon ion-ios-plus-outline"></button>
+      </div>
+
+   </ion-footer-bar>
+</ion-view>

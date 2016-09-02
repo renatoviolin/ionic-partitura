@@ -1,0 +1,30 @@
+/* Empty. Add your own CSS if you like */
+
+.div-partitura {
+	padding: 10px;
+}
+.div-partitura p {
+   line-height: 200%;
+}
+
+.div-partitura a {
+   color: black;
+   text-decoration: none;
+   pointer-events: none;
+}
+
+.div-partitura a:hover {
+   color: red;
+}
+
+.div-partitura a:link:before,
+a:visited:before {
+   content: attr(href);
+   position: relative;
+   top: -1em;
+   display: inline-flex;
+   width: 0;
+   overflow: visible;
+   color: red;
+   font-weight: bold;
+}
