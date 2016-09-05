@@ -1,8 +1,9 @@
 /* Empty. Add your own CSS if you like */
 
 .div-partitura {
-	padding: 10px;
+   padding: 10px;
 }
+
 .div-partitura p {
    line-height: 200%;
 }
@@ -23,7 +24,7 @@ a:visited:before {
    position: relative;
    top: -1em;
    display: inline-flex;
-   width: 0;
+   width: 0px;
    overflow: visible;
    color: red;
    font-weight: bold;

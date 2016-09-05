@@ -6,7 +6,7 @@
       </div>
    </ion-nav-buttons>
 
-   <ion-content delegate-handle="mainScroll" on-scroll="updateScrollPosition()">
+   <ion-content delegate-handle="mainScroll" on-scroll="updateScrollPosition()" has-bouncing="false" overflow-scroll="false">
       <div class="div-partitura" ng-bind-html="partitura.conteudo"> </div>
    </ion-content>
 

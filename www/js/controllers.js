@@ -53,7 +53,8 @@ angular.module('starter.controllers', [])
    var scroll_interval = null;
    var incremento = 1;
    var icon_play = 'button button-icon icon ion-ios-play-outline';
-   var icon_back = 'button button-icon icon ion-ios-skipbackward-outline';
+   var icon_pause = 'button button-icon icon ion-ios-pause-outline';
+   var status = "reset";
    $scope.interval = 100;
    $scope.velocidade = 100;
 
@@ -69,12 +70,23 @@ angular.module('starter.controllers', [])
    });
 
    $scope.updateScrollPosition = function() {
-      max_scroll = position = $ionicScrollDelegate.$getByHandle('mainScroll').getScrollPosition().top;
+      position = $ionicScrollDelegate.$getByHandle('mainScroll').getScrollPosition().top;
    }
-
    $scope.btnStartScroll = function() {
-      resetScroll();
-      startScroll();
+      max_scroll = $ionicScrollDelegate.$getByHandle('mainScroll').getScrollView().__maxScrollTop;
+
+      console.log("STATUS: " + status);
+      console.log("MAX: " + max_scroll);
+
+      if (status == "play") {
+         stopInterval();
+      } else
+      if (status == "stop") {
+         startScroll(getPosicaoAtual());
+      } else
+      if (status == "reset") {
+         startScroll(1);
+      }
    }
 
    $scope.btnReduzirVelocidade = function() {
@@ -96,27 +108,29 @@ angular.module('starter.controllers', [])
    }
 
    function startScroll(startPosition) {
-      position = startPosition || 0;
-      console.log($scope.interval);
-      console.log(position);
-      console.log(incremento);
-      scroll_interval = $interval(function() {
-         if (position <= (max_scroll + 10)) {
-            position += incremento;
-            $ionicScrollDelegate.scrollTo(0, position);
-         } else {
-            resetScroll();
-         }
-      }, $scope.interval);
+      status = "play";
+      $scope.scroll_icon = icon_pause;
+      position = startPosition || position;
+      scroll_interval = $interval(
+         function() {
+            if (position < max_scroll) {
+               position += incremento;
+               $ionicScrollDelegate.scrollTo(0, position);
+            } else {
+               resetScroll();
+            }
+         }, $scope.interval);
    }
 
    function stopInterval() {
+      $scope.scroll_icon = icon_play;
       $interval.cancel(scroll_interval);
+      status = "stop";
    }
 
    function resetScroll() {
-      $interval.cancel(scroll_interval);
-      $ionicScrollDelegate.$getByHandle('mainScroll').scrollTop();
+      stopInterval();
+      status = "reset";
    }
 
    function getPosicaoAtual() {
